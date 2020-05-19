@@ -1,4 +1,4 @@
-package com.east.permission;
+package com.east.permission.rxpermissions;
 
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;

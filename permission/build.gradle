@@ -34,6 +34,14 @@ android {
         }
     }
 
+    compileOptions {
+
+//        //在编译方面，增加了新的 coreLibraryDesugaringEnabled true 指令，开启这个指令，我们可以使用 Java 8 中的某些高级 API。
+//        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {

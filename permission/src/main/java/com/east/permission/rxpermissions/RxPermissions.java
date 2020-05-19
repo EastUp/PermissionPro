@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.east.permission;
+package com.east.permission.rxpermissions;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
