@@ -1,0 +1,3 @@
+rootProject.name='PermissionPro'
+include ':app'
+include ':permission'
