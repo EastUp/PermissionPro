@@ -1,7 +1,9 @@
 package com.east.permission
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
@@ -49,6 +51,24 @@ object PermissionCheckUtils {
                 }
             }
         }
+    }
+
+    fun checkeHasPermission(context: Context,permission:String):Boolean{
+        val pm = context.packageManager
+        return PackageManager.PERMISSION_GRANTED ==
+                pm.checkPermission(permission, context.packageName)
+    }
+
+    fun checkeHasPermission(context: Context,permissions:Array<String>):Boolean{
+        val pm = context.packageManager
+        var grantedPermissions = true
+        for (permission in permissions) {
+            if(PackageManager.PERMISSION_GRANTED != pm.checkPermission(permission, context.packageName)) {
+                grantedPermissions = false
+                break
+            }
+        }
+        return grantedPermissions
     }
 
 
