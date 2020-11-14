@@ -86,7 +86,7 @@ object PermissionCheckUtils {
     }
 
 
-    fun showMissingPermissionDialog(context: Context, listener: PermissionListener) {
+    fun showMissingPermissionDialog(context: Context, listener: PermissionListener?) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("提示")
         builder.setMessage("当前应用缺少必要权限。请点击\"设置\"-\"权限\"-打开所需权限。")
@@ -94,7 +94,7 @@ object PermissionCheckUtils {
         // 拒绝, 退出应用
         builder.setNegativeButton(
             "取消"
-        ) { _, _ -> listener.onCancel() }
+        ) { _, _ -> listener?.onCancel() }
 
         builder.setPositiveButton(
             "设置"
@@ -142,7 +142,7 @@ object PermissionCheckUtils {
     /**
      *  提示让用户打开位置服务设置
      */
-    fun showMissingLocationServiceDialog(context: Context, listener: PermissionListener) {
+    fun showMissingLocationServiceDialog(context: Context, listener: CancelListener?) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("提示")
         builder.setMessage("手机未打开位置服务。请进入设置打开")
@@ -150,7 +150,7 @@ object PermissionCheckUtils {
         // 拒绝, 退出应用
         builder.setNegativeButton(
             "取消"
-        ) { _, _ -> listener.onCancel() }
+        ) { _, _ -> listener?.onCancel() }
 
         builder.setPositiveButton(
             "设置"
