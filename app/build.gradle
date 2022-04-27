@@ -1,15 +1,14 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.android.extensions'
+}
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
-
+    compileSdkVersion androidVersion.compileSdk
     defaultConfig {
-        applicationId "com.east.permissionpro"
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdkVersion androidVersion.minSdk
+        targetSdkVersion androidVersion.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -19,8 +18,23 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
+//        //在编译方面，增加了新的 coreLibraryDesugaringEnabled true 指令，开启这个指令，我们可以使用 Java 8 中的某些高级 API。
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
