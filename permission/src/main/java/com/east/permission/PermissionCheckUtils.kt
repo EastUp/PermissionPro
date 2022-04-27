@@ -193,6 +193,7 @@ object PermissionCheckUtils {
      * yet granted.
      * @see Manifest.permission
      */
+    @JvmStatic
     fun hasPermissions(
         context: Context,
         @Size(min = 1) vararg perms: String
