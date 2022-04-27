@@ -1,43 +1,40 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
-    }
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.android.extensions'
+    id 'maven-publish'
 }
+group='com.github.eastup'
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
-
+    compileSdkVersion androidVersion.compileSdk
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdkVersion androidVersion.minSdk
+        targetSdkVersion androidVersion.targetSdk
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
-    compileOptions {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
 //        //在编译方面，增加了新的 coreLibraryDesugaringEnabled true 指令，开启这个指令，我们可以使用 Java 8 中的某些高级 API。
-//        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -60,4 +57,15 @@ dependencies {
     api deps.rx_android
 }
 
-apply from: 'permissionbintray.gradle'  //这个一定得放在最后,不然bintray.gradle中 task':xxx:javadoc' 会失败
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.eastup' //your git id
+                artifactId = 'permission' //your-repository
+                version = '1.0' // As same as the Tag
+            }
+        }
+    }
+}
